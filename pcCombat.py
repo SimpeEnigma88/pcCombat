@@ -25,14 +25,13 @@ class PCfighter(PC):
     def meleeAtk(self, mod = 0):
         return (random.randint(1, 20) + StatBonus(self.Str) + mod)
 
+    
 
 def StatBonus(stat):
     if stat >= 10:
         return ((stat - 10) // 2)
     elif stat <= 9 and stat >= 1:
         return ((-5) + (stat // 2))
-
-#print(StatBonus(pesky.Con))
 
 def Initiative(pc1, pc2):
     pc1roll = random.randint(1, 20) + StatBonus(pc1.Dex)
@@ -42,7 +41,7 @@ def Initiative(pc1, pc2):
     else:
         return False
 
- 
+
 def Combat(firstPC, secondPC):
     if Initiative(firstPC, secondPC) == True:
         pc1 = firstPC
@@ -50,12 +49,25 @@ def Combat(firstPC, secondPC):
     else:
         pc1 = secondPC
         pc2 = firstPC
+
+    rnd = 0
+    
+    while pc1.HP > 0 and pc2.HP > 0:
+        rnd += 1
+        print('Round ', rnd, '!!')
+        print(pc1.Name, ' attacks!')
+        roll = pc1.meleeAtk()
+        print(pc1.Name, 'rolls a ', roll, '!')
+        if roll > pc2.AC:
+            pc2.HP -= 
+        try:
+            input('Press Enter to Continue...')
+        except SyntaxError:
+            pass
+        
     
 
 pesky = PCfighter('Pesky', 12, 18, 16, 18, 14, 11, 'Fighter', 5, 5, 2, 0)
 diablo = PCfighter('Diablo', 8, 12, 10, 16, 12, 11, 'Fighter', 3, 3, 0, 2)
 
-print(pesky.meleeAtk())
-print(pesky.meleeAtk(-20))
-print(pesky.Name, pesky.HP)
-print(diablo.Name,' ', diablo.meleeAtk())
+Combat(pesky, diablo)
