@@ -52,8 +52,3 @@ diablo = PCfighter(8, 12, 10, 16, 12, 11, 'Fighter', 3, 3, 0, 2)
 
 print(pesky.meleeAtk())
 print(pesky.meleeAtk(-20))
-print(pesky.meleeAtk())
-print(pesky.meleeAtk())
-print(pesky.meleeAtk())
-print(pesky.meleeAtk())
-#print(pesky.Str)
