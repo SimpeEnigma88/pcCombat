@@ -26,7 +26,7 @@ class PCfighter(PC):
         return (random.randint(1, 20) + self.Level + StatBonus(self.Str) + mod)
 
     def meleeDmg(self, numDie = 1, dieType = 8, mod = 0):
-        return numDie * dieType + mod
+        return numDie * random.randint(1, dieType) + mod
 
 def StatBonus(stat):
     if stat >= 10:
@@ -52,7 +52,8 @@ def Combat(firstPC, secondPC):
         pc2 = firstPC
 
     rnd = 0
-    
+    print('Combat has begun between', pc1.Name, 'and', str(pc2.Name) + '!')
+    print(pc1.Name, 'has', pc1.HP, 'hitpoints and', pc2.Name, 'has', pc2.HP, 'hitpoints!')
     while pc1.HP > 0 and pc2.HP > 0:
         rnd += 1
         print('Round ' + str(rnd) + '!!')
@@ -89,6 +90,6 @@ def Combat(firstPC, secondPC):
     
 
 pesky = PCfighter('Pesky', 12, 18, 16, 18, 14, 11, 'Fighter', 5, 5, 2, 0)
-diablo = PCfighter('Diablo', 8, 12, 10, 16, 12, 11, 'Fighter', 3, 3, 0, 2)
+diablo = PCfighter('Diablo', 8, 12, 16, 16, 12, 11, 'Fighter', 3, 3, 0, 2)
 
 Combat(pesky, diablo)
