@@ -2,7 +2,7 @@ import random
 
 
 class PC:
-    def __init__(self, Name, Str, Dex, Con, Intel, Wis, Chr, Class, Level, armor, shield, sizeMods):
+    def __init__(self, Name, Str, Dex, Con, Intel, Wis, Chr, Class, Level, armor, shield, sizeMod):
         self.Name = Name
         self.Str = Str
         self.Dex = Dex
@@ -22,7 +22,8 @@ class PCfighter(PC):
         x = 1
         while x <= self.Level:
             self.HP += (random.randint(1, 10) + StatBonus(self.Con))
-            x = x + 1
+            x += 1
+            
     def meleeAtk(self, mod = 0):
         return (random.randint(1, 20) + self.Level + StatBonus(self.Str) + mod)
 
@@ -55,6 +56,7 @@ def Combat(firstPC, secondPC):
     rnd = 0
     print('Combat has begun between', pc1.Name, 'and', str(pc2.Name) + '!')
     print(pc1.Name, 'has', pc1.HP, 'hitpoints and', pc2.Name, 'has', pc2.HP, 'hitpoints!')
+    print('')
     while pc1.HP > 0 and pc2.HP > 0:
         rnd += 1
         print('Round ' + str(rnd) + '!!')
@@ -90,6 +92,5 @@ def Combat(firstPC, secondPC):
         
 
 pesky = PCfighter('Pesky', 12, 18, 16, 18, 14, 11, 'Fighter', 5, 5, 2, 0)
-diablo = PCfighter('Diablo', 8, 12, 16, 16, 12, 11, 'Fighter', 3, 3, 0, 2)
-
+diablo = PCfighter('Diablo', 10, 10, 10, 10, 10, 11, 'Fighter', 5, 5, 2, 0)
 Combat(pesky, diablo)
