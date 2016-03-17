@@ -13,6 +13,7 @@ class PC:
         self.Class = Class
         self.Level = Level
 
+
 class PCfighter(PC):
     def __init__(self, Name, Str, Dex, Con, Intel, Wis, Chr, Class, Level, armor, shield, sizeMod):
         PC.__init__(self, Name, Str, Dex, Con, Intel, Wis, Chr, Class, Level, armor, shield, sizeMod)
@@ -30,9 +31,9 @@ class PCfighter(PC):
 
 def StatBonus(stat):
     if stat >= 10:
-        return ((stat - 10) // 2)
+        return (stat - 10) // 2
     elif stat <= 9 and stat >= 1:
-        return ((-5) + (stat // 2))
+        return (-5) + (stat // 2)
 
 def Initiative(pc1, pc2):
     pc1roll = random.randint(1, 20) + StatBonus(pc1.Dex)
@@ -87,7 +88,6 @@ def Combat(firstPC, secondPC):
             except SyntaxError:
                 pass
         
-    
 
 pesky = PCfighter('Pesky', 12, 18, 16, 18, 14, 11, 'Fighter', 5, 5, 2, 0)
 diablo = PCfighter('Diablo', 8, 12, 16, 16, 12, 11, 'Fighter', 3, 3, 0, 2)
