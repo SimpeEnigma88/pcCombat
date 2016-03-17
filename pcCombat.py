@@ -23,9 +23,10 @@ class PCfighter(PC):
             self.HP += (random.randint(1, 10) + StatBonus(self.Con))
             x = x + 1
     def meleeAtk(self, mod = 0):
-        return (random.randint(1, 20) + StatBonus(self.Str) + mod)
+        return (random.randint(1, 20) + (self.Level) + StatBonus(self.Str) + mod)
 
-    
+    def meleeDmg(self, numDie = 1, dieType = 8, mod = 0):
+        return numDie * dieType + mod
 
 def StatBonus(stat):
     if stat >= 10:
@@ -54,14 +55,19 @@ def Combat(firstPC, secondPC):
     
     while pc1.HP > 0 and pc2.HP > 0:
         rnd += 1
-        print('Round ', rnd, '!!')
-        print(pc1.Name, ' attacks!')
+        print('Round ' + str(rnd) + '!!')
+        print(pc1.Name, 'attacks', pc2.Name + '!')
         roll = pc1.meleeAtk()
-        print(pc1.Name, 'rolls a ', roll, '!')
+        print(pc1.Name, 'rolls a ' + str(roll) + '!')
         if roll > pc2.AC:
-            pc2.HP -= 
+            dmg = pc1.meleeDmg()
+            pc2.HP -= dmg
+            print(pc1.Name, 'hits for', dmg, 'points!', pc2.Name, 'is down to', pc2.HP, 'hit points!')
+        else:
+            print(pc1.Name, 'missed!')
         try:
             input('Press Enter to Continue...')
+            print('')
         except SyntaxError:
             pass
         
