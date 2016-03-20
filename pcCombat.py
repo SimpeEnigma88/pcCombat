@@ -1,4 +1,4 @@
-import random
+import random, collections
 
 
 class PC:
@@ -89,8 +89,85 @@ def Combat(firstPC, secondPC):
                 print('')
             except SyntaxError:
                 pass
+
         
 
-pesky = PCfighter('Pesky', 12, 18, 16, 18, 14, 11, 'Fighter', 5, 5, 2, 0)
-diablo = PCfighter('Diablo', 10, 10, 10, 10, 10, 11, 'Fighter', 5, 5, 2, 0)
-Combat(pesky, diablo)
+Player1 = collections.OrderedDict()
+Player1['Name'] = ''
+Player1['Str'] = int(12)
+Player1['Dex'] = int(12)
+Player1['Con'] = int(12)
+Player1['Intel'] = int(12)
+Player1['Wis'] = int(12)
+Player1['Chr'] = int(12)
+Player1['Class'] = ''
+Player1['Level'] = int(1)
+Player1['armor'] = int(0)
+Player1['shield'] = int(0)
+Player1['sizeMod'] = int(0)
+
+
+Player2 = Player1
+
+prompts = {
+    'Name': 'Please enter a name for Player Character: ',
+    'Str' : "Please enter the Player's Strenth: ",
+    'Dex' : 'Dexterity:',
+    'Con' : "Constitution:",
+    'Intel' : 'Intelligence:',
+    'Wis' : 'Wisdom:',
+    'Chr' : "Charisma:",
+    'Class' : "Please enter the Character's class(Only Figther currently available):",
+    'Level' : "Character level: ",
+    'armor' : 'Armor bonus:',
+    'shield' : 'Shield bonus: ',
+    'sizeMod' : 'Size bonus to AC(For small races):'
+}
+
+def createPC(name):
+    for key in name:
+        if type(name[key]) == str:
+            name[key] = str(input(prompts[key]))
+        elif type(name[key]) == int:
+            name[key] = int(input(str(prompts[key])))
+    result = []
+    for key in name:
+        result.append(name[key])
+    return result
+
+
+def reTry():
+    tryAgain = input("Combat is over! Would you like to try with the same combatants again?(Y/N)")
+    if tryAgain == 'Y' or tryAgain == 'y':
+        Combat(PC1, PC2)
+    elif tryAgain == 'N' or tryAgain == 'n':
+        startOver = input("Would you like to try with new combatants?(Y/N)")
+        if startOver == 'Y' or startOver == 'y':
+            main()
+        elif startOver == 'N' or startOver == 'n':
+            sys.exit()
+        else:
+            print('I do not recognize your answer!')
+            reTry()
+    else:
+        print('I do not recognize your answer!')
+        reTry()
+
+def main():
+    print("Welcome to Andy's 3.5 Edition AD&D Combat Simulator")
+    print("Let's Begin by creating our combatants!")
+    print("Please enter the following information on combatant #1!")
+    print(' ')
+    PC1temp = createPC(Player1)
+    PC1 = PCfighter(PC1temp[0], PC1temp[1], PC1temp[2], PC1temp[3], PC1temp[4], PC1temp[5], PC1temp[6], PC1temp[7], PC1temp[8], PC1temp[9], PC1temp[10], PC1temp[11])
+
+    print("Great! Now enter the information for combatant #2!")
+    PC1temp = createPC(Player1)
+    PC2 = PCfighter(PC1temp[0], PC1temp[1], PC1temp[2], PC1temp[3], PC1temp[4], PC1temp[5], PC1temp[6], PC1temp[7], PC1temp[8], PC1temp[9], PC1temp[10], PC1temp[11])
+    print("Thank you! Let's begin!")
+    print(' ')
+
+    Combat(PC1, PC2)
+    reTry()
+            
+main()
