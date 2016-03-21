@@ -3,13 +3,13 @@ import sys, random, collections, copy
 
 class PC:
     def __init__(self, Name, Str, Dex, Con, Intel, Wis, Chr, Class, Level, armor, shield, sizeMod):
-        self.Name = Name
-        self.Str = Str
-        self.Dex = Dex
-        self.Con = Con
+        self.Name  = Name
+        self.Str   = Str
+        self.Dex   = Dex
+        self.Con   = Con
         self.Intel = Intel
-        self.Wis = Wis
-        self.Chr = Chr
+        self.Wis   = Wis
+        self.Chr   = Chr
         self.Class = Class
         self.Level = Level
 
@@ -35,31 +35,31 @@ class PCfighter(PC):
         return numDie * random.randint(1, dieType) + mod + StatBonus(self.Str)
 
 Player1 = collections.OrderedDict()
-Player1['Name'] = ''
-Player1['Str'] = int(12)
-Player1['Dex'] = int(12)
-Player1['Con'] = int(12)
-Player1['Intel'] = int(12)
-Player1['Wis'] = int(12)
-Player1['Chr'] = int(12)
-Player1['Class'] = ''
-Player1['Level'] = int(1)
-Player1['armor'] = int(0)
-Player1['shield'] = int(0)
+Player1['Name']    = ''
+Player1['Str']     = int(12)
+Player1['Dex']     = int(12)
+Player1['Con']     = int(12)
+Player1['Intel']   = int(12)
+Player1['Wis']     = int(12)
+Player1['Chr']     = int(12)
+Player1['Class']   = ''
+Player1['Level']   = int(1)
+Player1['armor']   = int(0)
+Player1['shield']  = int(0)
 Player1['sizeMod'] = int(0)
 
 prompts = {
-    'Name': 'Please enter a name for the character: ',
-    'Str' : "Please enter the character's Strenth: ",
-    'Dex' : 'Dexterity:',
-    'Con' : "Constitution:",
-    'Intel' : 'Intelligence:',
-    'Wis' : 'Wisdom:',
-    'Chr' : "Charisma:",
-    'Class' : "Please enter the Character's class(Only Figther currently available):",
-    'Level' : "Character level: ",
-    'armor' : 'Armor bonus:',
-    'shield' : 'Shield bonus: ',
+    'Name'    : 'Please enter a name for the character: ',
+    'Str'     : "Please enter the character's Strenth: ",
+    'Dex'     : 'Dexterity:',
+    'Con'     : "Constitution:",
+    'Intel'   : 'Intelligence:',
+    'Wis'     : 'Wisdom:',
+    'Chr'     : "Charisma:",
+    'Class'   : "Please enter the Character's class(Only Figther currently available):",
+    'Level'   : "Character level: ",
+    'armor'.  : 'Armor bonus:',
+    'shield'  : 'Shield bonus: ',
     'sizeMod' : 'Size bonus to AC(For small races):'
 }
 
