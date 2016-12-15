@@ -1,7 +1,7 @@
 import sys, random, collections, copy
 
 
-class PC:sxft chef dxffsq ddcccdßsqqgfdadxsaAaaaaa
+class PC:
     def __init__(self, Name, Str, Dex, Con, Intel, Wis, Chr, Class, Level, armor, shield, sizeMod):
         self.Name  = Name
         self.Str   = Str
@@ -186,7 +186,8 @@ def Begin():
     PC1temp = createPC(Player1)
     PC2 = PCfighter(PC1temp[0], PC1temp[1], PC1temp[2], PC1temp[3], PC1temp[4], PC1temp[5], PC1temp[6], PC1temp[7], PC1temp[8], PC1temp[9], PC1temp[10], PC1temp[11])
     print("Thank you! Let's begin!")
-    print(' ')    returnàaa PC1, PC2
+    print(' ')
+    return PC1, PC2
     
 Fresh = True
 
