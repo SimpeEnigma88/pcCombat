@@ -34,33 +34,34 @@ class PCfighter(PC):
     def meleeDmg(self, numDie = 1, dieType = 8, mod = 0):
         return numDie * random.randint(1, dieType) + mod + StatBonus(self.Str)
 
-Player1 = collections.OrderedDict()
-Player1['Name']    = ''
-Player1['Str']     = int(12)
-Player1['Dex']     = int(12)
-Player1['Con']     = int(12)
-Player1['Intel']   = int(12)
-Player1['Wis']     = int(12)
-Player1['Chr']     = int(12)
-Player1['Class']   = ''
-Player1['Level']   = int(1)
-Player1['armor']   = int(0)
-Player1['shield']  = int(0)
-Player1['sizeMod'] = int(0)
+Player1 = {
+    'Name': '',
+    'Str': 0,
+    'Dex': 0,
+    'Con': 0,
+    'Intel': 0,
+    'Wis': 0,
+    'Chr': 0,
+    'Class': '',
+    'Level': 0,
+    'armor': 0,
+    'shield': 0,
+    'sizeMod': 0
+}
 
 prompts = {
-    'Name'    : 'Please enter a name for the character: ',
-    'Str'     : "Please enter the character's Strenth: ",
-    'Dex'     : 'Dexterity:',
-    'Con'     : "Constitution:",
-    'Intel'   : 'Intelligence:',
-    'Wis'     : 'Wisdom:',
-    'Chr'     : "Charisma:",
-    'Class'   : "Please enter the Character's class(Only Figther currently available):",
-    'Level'   : "Character level: ",
-    'armor'.  : 'Armor bonus:',
-    'shield'  : 'Shield bonus: ',
-    'sizeMod' : 'Size bonus to AC(For small races):'
+    'Name': 'Please enter a name for the character: ',
+    'Str': "Please enter the character's Strength: ",
+    'Dex': 'Dexterity: ',
+    'Con': 'Constitution: ',
+    'Intel': 'Intelligence: ',
+    'Wis': 'Wisdom: ',
+    'Chr': 'Charisma: ',
+    'Class': "Please enter the Character's class (Only Fighter currently available): ",
+    'Level': 'Character level: ',
+    'armor': 'Armor bonus: ',
+    'shield': 'Shield bonus: ',
+    'sizeMod': 'Size bonus to AC (For small races): '
 }
 
 def main():
@@ -72,16 +73,14 @@ def main():
         if reTry() == True:
             PC1 = copy.deepcopy(static1)
             PC2 = copy.deepcopy(static2)
-            #print(PC1.HP, static1.HP, PC2.HP, static2.HP)
             Combat(PC1, PC2)
         else:
             startOver()
 
 def StatBonus(stat):
-    if stat >= 10:
-        return (stat - 10) // 2
-    elif stat <= 9 and stat >= 1:
-        return (-5) + (stat // 2)
+    if stat is None:
+        return 0
+    return (stat - 10) // 2
 
 def Initiative(pc1, pc2):
     pc1roll = random.randint(1, 20) + StatBonus(pc1.Dex)
@@ -145,12 +144,20 @@ def createPC(name):
         if type(name[key]) == str:
             name[key] = str(input(prompts[key]))
         elif type(name[key]) == int:
-            name[key] = int(input(str(prompts[key])))
+            while True:
+                user_input = input(prompts[key])
+                if user_input.strip() == "":
+                    print(f"Input for {key} cannot be empty. Please enter a valid integer.")
+                    continue
+                try:
+                    name[key] = int(user_input)
+                    break
+                except ValueError:
+                    print(f"Invalid input for {key}. Please enter a valid integer.")
     result = []
     for key in name:
         result.append(name[key])
     return result
-
 
 def reTry():
     while True:
@@ -160,7 +167,7 @@ def reTry():
         elif tryAgain == 'N' or tryAgain == 'n':
             return False
         else:
-            print('I do not recognize your answer!')
+            print("Invalid input. Please enter 'Y' or 'N'.")
 
 def startOver():
     startAgain = input("Would you like to try with new combatants?(Y/N)")
@@ -173,18 +180,19 @@ def startOver():
         startOver()
 
 def Begin():
+    def create_combatant(player_num):
+        print(f"Please enter the following information on combatant #{player_num}!")
+        print(' ')
+        PCtemp = createPC(Player1)
+        return PCfighter(*PCtemp)
+
     print('\n')
     print("Welcome to Andy's 3.5 Edition AD&D Combat Simulator")
     print("Let's Begin by creating our combatants!")
-    print("Please enter the following information on combatant #1!")
     print(' ')
-    PC1temp = createPC(Player1)
-    PC1 = PCfighter(PC1temp[0], PC1temp[1], PC1temp[2], PC1temp[3], PC1temp[4], PC1temp[5], PC1temp[6], PC1temp[7], PC1temp[8], PC1temp[9], PC1temp[10], PC1temp[11])
+    PC1 = create_combatant(1)
     print('\n')
-    print("Great! Now enter the information for combatant #2!")
-    print(' ')
-    PC1temp = createPC(Player1)
-    PC2 = PCfighter(PC1temp[0], PC1temp[1], PC1temp[2], PC1temp[3], PC1temp[4], PC1temp[5], PC1temp[6], PC1temp[7], PC1temp[8], PC1temp[9], PC1temp[10], PC1temp[11])
+    PC2 = create_combatant(2)
     print("Thank you! Let's begin!")
     print(' ')
     return PC1, PC2
@@ -192,4 +200,6 @@ def Begin():
 Fresh = True
 
             
-main()
+
+if __name__ == "__main__":
+    main()
